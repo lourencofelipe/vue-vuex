@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { magGetters, mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import TarefaSalvar from './TarefaSalvar.vue'
 import TarefasListaIten from './TarefasListaIten.vue'
 
@@ -69,7 +69,7 @@ export default {
     },
     computed: {
         ...mapState(['tarefas']),
-        ...magGetters(['tarefasAFazer', 'tarefasConcluidas', 'totalDeTarefasConcluidas']),
+        ...mapGetters(['tarefasAFazer', 'tarefasConcluidas', 'totalDeTarefasConcluidas']),
         tarefasConcluidas() {
             return this.$store.getters.tarefasConcluidas
         }
