@@ -8,7 +8,19 @@
     </div>
       <div class="container">
 
+        <Contador />
 
       </div>
    </div>
 </template>
+
+<script>
+
+import Contador from './components/Contador'
+
+export default {
+  components: {
+    Contador
+  }
+}
+</script>
