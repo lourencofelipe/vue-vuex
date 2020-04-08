@@ -12,6 +12,11 @@ export default new Vuex.Store({
       { id: 3, titulo: 'Aprender Vuex', concluido: false }
     ]
   },
+  getters: {
+    tarefasConcluidas: (state) => state.tarefas.filter(t => t.concluido),
+    tarefasAFazer: (state) => state.tarefas.filter(t => !t.concluido),
+    totalDeTarefasConcluidas: (state, getters) => getters.tarefasConcluidas.length
+  },
   mutations: {
   },
   actions: {
