@@ -13,10 +13,14 @@ import { mapState } from 'vuex'
 
 export default {
     // computed: mapState(['contador']),
-    computed: mapState({
-        //contador: state => state.contador
-        contador: 'contador'
-    }),
+    computed: {
+        // usando spread, permite continuar adicionando outras computed prop.
+      ...mapState({
+            //contador: state => state.contador
+        contador: 'contador',
+        contadorAlias: 'contador'
+      })
+    },
     methods: {
         decrementar() {
             this.$store.state.contador--
