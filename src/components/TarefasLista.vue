@@ -63,6 +63,10 @@ export default {
             tarefaSelecionada: undefined
         }
     },
+    created() {
+        // Acessando a mutation
+        this.$store.commit('listarTarefas')
+    },
     computed: {
         ...mapState(['tarefas']),
         ...magGetters(['tarefasAFazer', 'tarefasConcluidas', 'totalDeTarefasConcluidas']),
