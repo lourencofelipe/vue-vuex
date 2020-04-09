@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapMutations, mapState } from 'vuex'
 import TarefaSalvar from './TarefaSalvar.vue'
 import TarefasListaIten from './TarefasListaIten.vue'
 
@@ -65,7 +65,15 @@ export default {
     },
     created() {
         // Acessando a mutation
-        this.$store.commit('listarTarefas', {
+        // this.$store.commit({
+        //     type: 'listarTarefas',
+        //     tarefas: [
+        //         { id: 1, titulo: 'Aprender Vue', concluido: true },
+        //         { id: 2, titulo: 'Aprender Vue Router', concluido: true },
+        //         { id: 3, titulo: 'Aprender Vuex', concluido: false }
+        //     ]
+        // })
+        this.listarTarefas({
             tarefas: [
                 { id: 1, titulo: 'Aprender Vue', concluido: true },
                 { id: 2, titulo: 'Aprender Vue Router', concluido: true },
@@ -81,6 +89,13 @@ export default {
         }
     },
     methods: {
+        //...mapMutations(['listarTarefas']),
+        ...mapMutations({
+            carregarTarefas: 'listarTarefas',
+            listarTarefas: (commit, payload, options) => {
+                commit('listarTarefas', payload, options)
+            }
+        }),
         exibirFormularioCriarTarefa() {
             if (this.tarefaSelecionada) {
                 this.tarefaSelecionada = undefined
