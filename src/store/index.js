@@ -18,8 +18,12 @@ export default new Vuex.Store({
     listarTarefas:(state, { tarefas }) => {
       state.tarefas = tarefas
     }
+    // after state snapshot
   },
   actions: {
+    listarTarefas: (context, payload) => {
+      context.commit('listarTarefas', payload)
+    }
   },
   modules: {
   }
