@@ -17,7 +17,7 @@
 
         <h3 class="font-weight-light mt-4">A Fazer ({{ tarefasAFazer.length }})</h3>
 
-        <ul class="list-group" v-if= tarefasAFazer.length > 0">
+        <ul class="list-group" v-if= tarefasAFazer.length>
             <TarefasListaIten
                 v-for="tarefa in tarefasAFazer"
                 :key="tarefa.id"
@@ -65,7 +65,13 @@ export default {
     },
     created() {
         // Acessando a mutation
-        this.$store.commit('listarTarefas')
+        this.$store.commit('listarTarefas', {
+            tarefas: [
+                { id: 1, titulo: 'Aprender Vue', concluido: true },
+                { id: 2, titulo: 'Aprender Vue Router', concluido: true },
+                { id: 3, titulo: 'Aprender Vuex', concluido: false }
+            ]
+        })
     },
     computed: {
         ...mapState(['tarefas']),
