@@ -48,9 +48,11 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
 import TarefaSalvar from './TarefaSalvar.vue'
 import TarefasListaIten from './TarefasListaIten.vue'
+
+const { mapActions, mapGetters, mapState } = createNamespacedHelpers('tarefas')
 
 export default {
     components: {
@@ -63,24 +65,23 @@ export default {
             tarefaSelecionada: undefined
         }
     },
-    created() {
-        setTimeout(async () => {
-            // this.$store.dispatch('listarTarefas', {
-            //     tarefas: [
-            //         { id: 1, titulo: 'Aprender Vue', concluido: true },
-            //         { id: 2, titulo: 'Aprender Vue Router', concluido: true },
-            //         { id: 3, titulo: 'Aprender Vuex', concluido: false }
-            //     ]
-            // })
-            await this.listarTarefas()
-        }, 1000)
-    },
     computed: {
         ...mapState(['tarefas']),
-        ...mapGetters(['tarefasAFazer', 'tarefasConcluidas', 'totalDeTarefasConcluidas']),
+        ...mapGetters([
+            'tarefasAFazer', 
+            'tarefasConcluidas', 
+            'totalDeTarefasConcluidas',
+            'boasVindas'
+            ]),
         tarefasConcluidas() {
             return this.$store.getters.tarefasConcluidas
         }
+    },
+    created() {
+        setTimeout(async () => {
+            console.log('Usuario atual:', this.boasVindas)
+            await this.listarTarefas()
+        }, 1000)
     },
     methods: {
         ...mapActions({
@@ -89,12 +90,6 @@ export default {
                 return dispatch('listarTarefas', payload, options)
             }
         }),
-        // ...mapMutations({
-        //     carregarTarefas: 'listarTarefas',
-        //     listarTarefas: (commit, payload, options) => {
-        //         commit('listarTarefas', payload, options)
-        //     }
-        // }),
         exibirFormularioCriarTarefa() {
             if (this.tarefaSelecionada) {
                 this.tarefaSelecionada = undefined
