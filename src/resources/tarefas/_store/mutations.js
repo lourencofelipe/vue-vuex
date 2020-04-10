@@ -1,5 +1,10 @@
+
+import {
+    LISTAR_TAREFAS
+} from './mutation-types'
+
 export default {
-    listarTarefas: (state, { tarefas }) => {
+    [LISTAR_TAREFAS]: (state, { tarefas }) => {
         state.tarefas = tarefas
     }
     // after state snapshot

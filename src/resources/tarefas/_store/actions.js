@@ -1,3 +1,6 @@
+
+import * as types from './mutation-types'
+
 export default {
     buscarTarefas: () => {
         return new Promise((resolve) => {
@@ -12,7 +15,7 @@ export default {
     },
     listarTarefas: async ({ commit, dispatch }) => {
         const tarefas = await dispatch('buscarTarefas')
-        commit('listarTarefas', { tarefas })
+        commit(types.LISTAR_TAREFAS, { tarefas })
 
         dispatch('logar', 'Bruce Dickinson', { root: true })
         // dispatch('logar', null, {root: true})
