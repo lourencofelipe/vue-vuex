@@ -25,7 +25,7 @@
                 @editar="selecionarTarefaParaEdicao" />
         </ul>
 
-        <p v-else>Nenhuma tarefa a fazer./p>
+        <p v-else>Nenhuma tarefa a fazer.</p>
 
             <h3 class="font-weight-light mt-4">Concluídas ({{ totalDeTarefasConcluidas }})</h3>
 
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
 import TarefaSalvar from './TarefaSalvar.vue'
 import TarefasListaIten from './TarefasListaIten.vue'
 
@@ -64,14 +64,15 @@ export default {
         }
     },
     created() {
-        setTimeout(() => {
-            this.$store.dispatch('listarTarefas', {
-                tarefas: [
-                    { id: 1, titulo: 'Aprender Vue', concluido: true },
-                    { id: 2, titulo: 'Aprender Vue Router', concluido: true },
-                    { id: 3, titulo: 'Aprender Vuex', concluido: false }
-                ]
-            })
+        setTimeout(async () => {
+            // this.$store.dispatch('listarTarefas', {
+            //     tarefas: [
+            //         { id: 1, titulo: 'Aprender Vue', concluido: true },
+            //         { id: 2, titulo: 'Aprender Vue Router', concluido: true },
+            //         { id: 3, titulo: 'Aprender Vuex', concluido: false }
+            //     ]
+            // })
+            await this.listarTarefas()
         }, 1000)
     },
     computed: {
@@ -82,6 +83,12 @@ export default {
         }
     },
     methods: {
+        ...mapActions({
+            carregarTarefas: 'listarTarefas',
+            listarTarefas: (dispatch, payload, options) => {
+                return dispatch('listarTarefas', payload, options)
+            }
+        }),
         // ...mapMutations({
         //     carregarTarefas: 'listarTarefas',
         //     listarTarefas: (commit, payload, options) => {
