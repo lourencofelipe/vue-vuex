@@ -27,7 +27,7 @@ export default {
             //contador: 'contador',
             contadorAlias: state => state.contador,
             contadorMultiplicado(state) {
-                return state.contador.contador * this.contadorLocal
+                return state.contador * this.contadorLocal
             }
         })
         // outras computed properties

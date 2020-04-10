@@ -29,7 +29,7 @@
 
             <h3 class="font-weight-light mt-4">Concluídas ({{ totalDeTarefasConcluidas }})</h3>
 
-        <ul class="list-group" v-if="tarefasConcluidas.length > 0">
+        <ul class="list-group" v-if="tarefasConcluidas > 0">
             <TarefasListaIten
                 v-for="tarefa in tarefasConcluidas"
                 :key="tarefa.id"
