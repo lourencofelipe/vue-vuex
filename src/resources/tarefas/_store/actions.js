@@ -13,7 +13,6 @@ export default {
             .then(response => {
                 commit(types.CRIAR_TAREFA, { tarefa: response.data })
             })
-            .catch(erro => commit(types.SETAR_ERRO, { erro })
     },
     editarTarefa: async ({ commit }, { tarefa }) => {
         const response = await TarefasService.putTarefa(tarefa)
