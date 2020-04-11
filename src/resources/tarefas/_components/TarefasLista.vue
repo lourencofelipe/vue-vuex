@@ -22,7 +22,8 @@
                 v-for="tarefa in tarefasAFazer"
                 :key="tarefa.id"
                 :tarefa="tarefa"
-                @editar="selecionarTarefaParaEdicao" />
+                @editar="selecionarTarefaParaEdicao"
+                @concluir="concluirTarefa({tarefa: $event})" />
         </ul>
 
         <p v-else>Nenhuma tarefa a fazer.</p>
@@ -34,7 +35,8 @@
                 v-for="tarefa in tarefasConcluidas"
                 :key="tarefa.id"
                 :tarefa="tarefa"
-                @editar="selecionarTarefaParaEdicao" />
+                @editar="selecionarTarefaParaEdicao"
+                @concluir="concluirTarefa({tarefa: $event})" />
         </ul>
 
         <p v-else>Nenhuma tarefa concluída.</p>
@@ -80,19 +82,13 @@ export default {
     },
     created() {
         register(this.$store)
-
-        setTimeout(async () => {
-            console.log('Usuario atual:', this.boasVindas)
-            await this.listarTarefas()
-        }, 1000)
+        this.listarTarefas()
     },
     methods: {
-        ...mapActions({
-            carregarTarefas: 'listarTarefas',
-            listarTarefas: (dispatch, payload, options) => {
-                return dispatch('listarTarefas', payload, options)
-            }
-        }),
+        ...mapActions([
+            'concluirTarefa',
+            'listarTarefas'
+        ]),
         exibirFormularioCriarTarefa() {
             if (this.tarefaSelecionada) {
                 this.tarefaSelecionada = undefined
