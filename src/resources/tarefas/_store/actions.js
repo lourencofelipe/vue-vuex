@@ -8,7 +8,7 @@ export default {
         tarefa.concluido = !tarefa.concluido
         dispatch('editarTarefa', { tarefa })
     },
-    criarTarefa: ({ commit }, { tarefa }) => {
+    criarTarefa: async ({ commit }, { tarefa }) => {
         return TarefasService.postTarefa(tarefa)
             .then(response => {
                 commit(types.CRIAR_TAREFA, { tarefa: response.data })

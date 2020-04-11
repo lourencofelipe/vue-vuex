@@ -23,7 +23,8 @@
                 :key="tarefa.id"
                 :tarefa="tarefa"
                 @editar="selecionarTarefaParaEdicao"
-                @concluir="concluirTarefa({tarefa: $event})" />
+                @concluir="concluirTarefa({tarefa: $event})"
+                @deletar="confirmarRemocaoTarefa" />
         </ul>
 
         <p v-else>Nenhuma tarefa a fazer.</p>
@@ -36,7 +37,8 @@
                 :key="tarefa.id"
                 :tarefa="tarefa"
                 @editar="selecionarTarefaParaEdicao"
-                @concluir="concluirTarefa({tarefa: $event})" />
+                @concluir="concluirTarefa({tarefa: $event})"
+                @deletar="confirmarRemocaoTarefa" />
         </ul>
 
         <p v-else>Nenhuma tarefa concluída.</p>
@@ -87,8 +89,15 @@ export default {
     methods: {
         ...mapActions([
             'concluirTarefa',
+            'deletarTarefa',
             'listarTarefas'
         ]),
+        confirmarRemocaoTarefa(tarefa) {
+            const confirmar = window.confirm(`Deseja deletar a tarefa "${tarefa.titulo}"?`)
+            if(confirmar){
+                this.deletarTarefa({ tarefa })
+            }
+        },
         exibirFormularioCriarTarefa() {
             if (this.tarefaSelecionada) {
                 this.tarefaSelecionada = undefined
