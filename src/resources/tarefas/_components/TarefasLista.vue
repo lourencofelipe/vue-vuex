@@ -45,7 +45,9 @@
 
         <TarefaSalvar
             v-if="exibirFormulario"
-            :tarefa="tarefaSelecionada" />
+            @salvar="salvarTarefa" />
+        
+        <div class="alert alert-danger" v-if="erro">{{ erro.message }}</div>
 
 
     </div>
@@ -70,7 +72,10 @@ export default {
         }
     },
     computed: {
-        ...mapState(['tarefaSelecionada']),
+        ...mapState([
+            'erro',
+            'tarefaSelecionada'
+        ]),
         ...mapGetters([
             'tarefasAFazer', 
             'tarefasConcluidas', 
@@ -88,7 +93,9 @@ export default {
     methods: {
         ...mapActions([
             'concluirTarefa',
+            'criarTarefa',
             'deletarTarefa',
+            'editarTarefa',
             'listarTarefas',
             'selecionarTarefa',
             'resetarTarefaSelecionada'
@@ -105,6 +112,16 @@ export default {
                 return
             }
             this.exibirFormulario = !this.exibirFormulario
+        },
+        async salvarTarefa(event) {
+            switch(event.operacao){
+                case 'criar':
+                    await this.criarTarefa({ tarefa: event.tarefa })
+                    break
+                case 'editar':
+                   await this.editarTarefa({ tarefa: event.tarefa })
+            }
+            this.resetar()
         },
         selecionarTarefaParaEdicao(tarefa) {
             this.exibirFormulario = true
